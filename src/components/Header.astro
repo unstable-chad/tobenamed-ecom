@@ -1,0 +1,159 @@
+---
+import Icon from './Icon.astro';
+import { site, nav, emailLink } from '../config/site';
+---
+
+<header class="header">
+  <div class="container bar">
+    <a href="/" class="logo">{site.name}</a>
+
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={emailLink()} class="btn btn-primary nav-cta">Get in touch</a>
+    </nav>
+
+    <button class="menu-toggle" aria-controls="site-nav" aria-expanded="false">
+      <span class="sr-only">Toggle menu</span>
+      <Icon name="menu" class="icon-open" />
+      <Icon name="close" class="icon-close" />
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('site-nav');
+
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute('aria-expanded', String(open));
+    nav?.classList.toggle('open', open);
+  };
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Close the mobile menu after picking a link.
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav ul a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+
+  .nav ul a:hover {
+    color: var(--text);
+  }
+
+  .nav-cta {
+    padding: 10px 18px;
+  }
+
+  .menu-toggle {
+    display: none;
+    padding: 8px;
+    border: 0;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  /* Icons are rendered by a child component, so they need :global() to be styled here. */
+  .menu-toggle :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+
+  .menu-toggle :global(.icon-close),
+  .menu-toggle[aria-expanded='true'] :global(.icon-open) {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded='true'] :global(.icon-close) {
+    display: block;
+  }
+
+  @media (max-width: 760px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav {
+      display: none;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 16px var(--gutter) 24px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav.open {
+      display: flex;
+    }
+
+    .nav ul {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav ul a {
+      display: block;
+      padding: 10px 0;
+      font-size: 1.05rem;
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import Icon from '../Icon.astro';
+import WhatsAppIcon from '../WhatsAppIcon.astro';
+import { emailLink, whatsappLink } from '../../config/site';
+---
+
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <h2>Ready to grow your store?</h2>
+      <p>Tell us about your brand. We usually reply within a few hours.</p>
+      <div class="actions">
+        <a href={whatsappLink()} class="btn btn-whatsapp" target="_blank" rel="noopener">
+          <WhatsAppIcon />
+          WhatsApp us
+        </a>
+        <a href={emailLink()} class="btn btn-light">
+          <Icon name="mail" />
+          Send an email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding: clamp(40px, 7vw, 72px) clamp(24px, 5vw, 64px);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  p {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .btn-light {
+    background: #fff;
+    color: #16161d;
+  }
+
+  .btn-light:hover {
+    background: #f1f1f6;
+  }
+
+  @media (max-width: 480px) {
+    .actions {
+      flex-direction: column;
+    }
+  }
+</style>

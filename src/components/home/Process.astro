@@ -1,0 +1,56 @@
+---
+import { process } from '../../config/site';
+---
+
+<section id="process" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How we work</span>
+      <h2>Simple process, no guesswork.</h2>
+    </div>
+
+    <ol class="steps">
+      {
+        process.map((step, i) => (
+          <li>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding-top: 20px;
+    border-top: 2px solid var(--border);
+  }
+
+  .num {
+    display: block;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--text-muted);
+  }
+</style>

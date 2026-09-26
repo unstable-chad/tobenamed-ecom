@@ -1,0 +1,35 @@
+---
+import WhatsAppIcon from './WhatsAppIcon.astro';
+import { whatsappLink } from '../config/site';
+---
+
+<a href={whatsappLink()} class="fab" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <WhatsAppIcon />
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    color: #fff;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+    transition: transform 0.15s ease;
+  }
+
+  .fab:hover {
+    transform: scale(1.06);
+  }
+
+  .fab svg {
+    width: 30px;
+    height: 30px;
+  }
+</style>
